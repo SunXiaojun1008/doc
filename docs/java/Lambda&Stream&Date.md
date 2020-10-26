@@ -1,4 +1,4 @@
-## 万字详解，JDK1.8的Lambda、Stream和日期的使用详解
+## JDK1.8的Lambda、Stream和日期的使用详解
 
 ## 前言
 
