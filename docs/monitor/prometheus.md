@@ -14,9 +14,10 @@ tar xvfz prometheus-2.22.0.linux-amd64.tar.gz
 
 3. 启动服务
 
-```
+```shell
 cd prometheus-2.22.0.linux-amd64/
-./prometheus --config.file=prometheus.yml
+# --web.enable-lifecycle 启用热加载
+./prometheus --config.file=prometheus.yml --web.enable-lifecycle
 ```
 
 ![image-20201104105749453](/Users/sunxiaojun/Library/Application Support/typora-user-images/image-20201104105749453.png)
@@ -764,4 +765,12 @@ PUT/POST  /-/reload  #触发重载Prometheus配置和规则文件
 ```shell
 PUT/POST  /-/quit # 触发Prometheus的正常关闭
 ```
+
+### 配置管理
+
+**[promgen](https://line.github.io/promgen/conf/prometheus.html)**是一个基于Python开发的、方便prometheus 配置文件生成的工具，可以帮助我们生成以及管理prometheus的配置文件，同时可以配置案例alert 规则以及通知选项。
+
+### Webhook
+
+对于Alertmanager不支持的通知机制，可使用[webhook接收器](http://www.coderdocument.com/docs/prometheus/v2.14/alerting/configuration.html#webhook_config)进行集成。
 
