@@ -16,6 +16,8 @@ apt-get install krb5-kdc libkrb5-dev python3-six -y --fix-missing
 
 安装完后，需要在/etc目录下创建一个krb5.conf,用来进行配置
 
+> krb5.conf文件内容为kafka服务端的Kerberos认证的krb5.conf的文件内容
+
 ```shell
 [libdefaults]
   renew_lifetime = 7d
@@ -41,16 +43,6 @@ apt-get install krb5-kdc libkrb5-dev python3-six -y --fix-missing
 
   }
 ```
-
-#### Gssapi安装
-
-使用pip命令安装gssapi
-
-```shell
-python -m pip install gssapi
-```
-
-
 
 ### 配置文件
 

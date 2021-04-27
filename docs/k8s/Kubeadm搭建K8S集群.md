@@ -28,8 +28,15 @@ calico:v3.10
 
 ### 1.3更新并安装依赖
 
-```
+```shell
 yum -y update
+# 当使用yum报错：
+
+vi /etc/yum/pluginconf.d/license-manager.conf
+enabled=1 改成 enabled=0
+
+#修改完后yum即可以正常使用
+
 yum install -y conntrack ipvsadm ipset jq sysstat curl iptables libseccomp
 ```
 
@@ -37,7 +44,7 @@ yum install -y conntrack ipvsadm ipset jq sysstat curl iptables libseccomp
 
 在每一台机器上都安装好Docker，版本为18.09.0
 
-```
+```shell
 01 安装必要的依赖
 	sudo yum install -y yum-utils \
     device-mapper-persistent-data \
@@ -59,7 +66,9 @@ sudo systemctl daemon-reload
 
 03 安装docker
 
-  yum install -y docker-ce-18.09.0 docker-ce-cli-18.09.0 containerd.io
+yum install -y docker-ce-18.09.0 docker-ce-cli-18.09.0 containerd.io
+OR
+yum install -y docker-ce-18.06.0.ce-3.el7
 
 
 04 启动docker
@@ -310,6 +319,9 @@ done
 ```
 kubeadm join 192.168.56.107:6443 --token j7574a.iebrecl2o984dt5q \
     --discovery-token-ca-cert-hash sha256:bed9e7f488b6260223e7e0fa172655f20500a9859ae4e64504596ece8009e6d2 
+    
+kubeadm join 10.154.8.173:6443 --token 59ags8.kc9zmbyb3tn6t7cc \
+    --discovery-token-ca-cert-hash sha256:bae86e389c2bc7835a0cd0302072fa79b42ae432c54fbc6810345b95e85a942f 
 ```
 
 > (3)根据日志提示

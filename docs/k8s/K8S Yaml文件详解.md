@@ -133,6 +133,3 @@ spec: # 资源规范字段
     app: fms-rule # 表示此service需要关联包含标签app = fms-rule的pod上
     
 ```
-
-
-

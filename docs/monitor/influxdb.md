@@ -125,7 +125,7 @@ select * from measurement_name limit 10;
 -- 数据中的时间字段默认显示的是一个纳秒时间戳，改成可读格式
 precision rfc3339; -- 之后再查询，时间就是rfc3339标准格式
 -- 或可以在连接数据库的时候，直接带该参数
-influx -precision rfc3339
+us
 -- 查看一个measurement中所有的tag key 
 show tag keys
 -- 查看一个measurement中所有的field key 
