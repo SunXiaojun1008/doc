@@ -38,6 +38,10 @@ enabled=1 改成 enabled=0
 #修改完后yum即可以正常使用
 
 yum install -y conntrack ipvsadm ipset jq sysstat curl iptables libseccomp
+
+# 查看安装过的包
+yum list installed | grep docker
+rm -rf /var/lib/docker
 ```
 
 ### 1.4 安装Docker
@@ -68,7 +72,7 @@ sudo systemctl daemon-reload
 
 yum install -y docker-ce-18.09.0 docker-ce-cli-18.09.0 containerd.io
 OR
-yum install -y docker-ce-18.06.0.ce-3.el7
+yum install -y docker-ce-18.06.0.ce-3.el7 containerd.io-1.4.4-3.1.el7
 
 
 04 启动docker
@@ -150,14 +154,14 @@ EOF
 > (2)安装kubeadm&kubelet&kubectl
 
 ```
-yum install -y kubeadm-1.16.0-0 kubelet-1.16.0-0 kubectl-1.16.0-0
+yum install -y kubeadm-1.18.0-0 kubelet-1.18.0-0 kubectl-1.18.0-0
 ```
 
 > (3)docker和k8s设置同一个cgroup
 
 ```
 # docker
-vi /etc/docker/daemon.json
+ vi /etc/docker/daemon.json
     "exec-opts": ["native.cgroupdriver=systemd"],
     
 systemctl restart docker
@@ -189,6 +193,19 @@ k8s.gcr.io/coredns:1.6.2
 ```
 
 > (2)解决国外镜像不能访问的问题
+
+```
+url=registry.cn-hangzhou.aliyuncs.com/google_containers #阿里云镜像仓库地址，可以按需修改
+version=v1.18.0 #安装的kubernetes的版本（可以按需修改）
+images=(`kubeadm config images list --kubernetes-version=$version|awk -F '/' '{print $2}'`)
+for imagename in ${images[@]} ; do
+  docker pull $url/$imagename
+  docker tag $url/$imagename k8s.gcr.io/$imagename
+  docker rmi -f $url/$imagename
+done
+```
+
+
 
 - 创建kubeadm.sh脚本，用于拉取镜像/打tag/删除原有镜像
 
@@ -310,18 +327,22 @@ done
 >
 > ```
 > # 本地有镜像
-> kubeadm init --kubernetes-version=1.16.0 --apiserver-advertise-address=192.168.56.107 --pod-network-cidr=10.244.0.0/16
+> 
+>  kubeadm init \
+>   --apiserver-advertise-address=10.154.8.7 \
+>   --kubernetes-version v1.18.0 \
+>   --service-cidr=10.1.0.0/16 \
+>   --pod-network-cidr=10.244.0.0/16
+>   
+> kubeadm init --kubernetes-version=1.18.0 --apiserver-advertise-address=10.154.8.7 --service-cidr=10.1.0.0/16 --pod-network-cidr=10.244.0.0/16
 > 【若要重新初始化集群状态：kubeadm reset，然后再进行上述操作】
 > ```
 
 **记得保存好最后kubeadm join的信息**
 
 ```
-kubeadm join 192.168.56.107:6443 --token j7574a.iebrecl2o984dt5q \
-    --discovery-token-ca-cert-hash sha256:bed9e7f488b6260223e7e0fa172655f20500a9859ae4e64504596ece8009e6d2 
-    
-kubeadm join 10.154.8.173:6443 --token 59ags8.kc9zmbyb3tn6t7cc \
-    --discovery-token-ca-cert-hash sha256:bae86e389c2bc7835a0cd0302072fa79b42ae432c54fbc6810345b95e85a942f 
+kubeadm join 10.154.8.7:6443 --token 9bv6o6.mdee548m9taythvv \
+    --discovery-token-ca-cert-hash sha256:3fcb57bc1824e4b65fd3c1ebfeb2144d4d6f4d0f8d7f3268712bca9e34bb9670
 ```
 
 > (3)根据日志提示
@@ -352,7 +373,7 @@ kubectl get pods -n kube-system
 curl -k https://localhost:6443/healthz
 ```
 
-### 1.10 部署calico网络插件
+### 1.10 部署calico网络插件(Flannel)
 
 > 选择网络插件：https://kubernetes.io/docs/concepts/cluster-administration/addons/
 >

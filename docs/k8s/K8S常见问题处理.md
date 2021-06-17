@@ -36,3 +36,7 @@ featureGates:
 
 
 
+#### 批量强制删除异常Pod
+
+kubectl get po -A -o wide | grep Terminating | awk ‘{print $2}’ | xargs kubectl  delete po --grace-period=0 --force
+

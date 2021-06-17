@@ -14,3 +14,18 @@
 
       
 
+2. 修改yum源
+
+    [CentOS7-Base-163.repo](C:\Users\Lenovo\Desktop\yum\CentOS7-Base-163.repo) 
+
+    [docker-ce.repo](C:\Users\Lenovo\Desktop\yum\docker-ce.repo) 
+
+    [k8s.repo](C:\Users\Lenovo\Desktop\yum\k8s.repo) 
+
+    [Centos-7.repo](C:\Users\Lenovo\Desktop\yum\Centos-7.repo) 
+
+```
+yum clean all  
+yum makecache
+```
+
