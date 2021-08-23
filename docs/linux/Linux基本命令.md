@@ -29,3 +29,9 @@ yum clean all
 yum makecache
 ```
 
+3. vim 全局修改
+
+   > :%s/from/to/g
+
+   
+

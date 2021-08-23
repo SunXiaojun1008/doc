@@ -38,5 +38,9 @@ featureGates:
 
 #### 批量强制删除异常Pod
 
-kubectl get po -A -o wide | grep Terminating | awk ‘{print $2}’ | xargs kubectl  delete po --grace-period=0 --force
+kubectl get po --all-namespaces -o wide | grep Terminating | awk '{print $2}' | xargs kubectl  delete po --grace-period=0 --force
+
+### Calico组件网络异常
+
+> Calico对底层网络有要求，一般是需要Mac地址能够直通，不能跨二层域。
 

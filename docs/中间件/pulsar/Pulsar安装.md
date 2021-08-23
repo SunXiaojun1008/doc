@@ -59,5 +59,5 @@ $ cd apache-pulsar-2.7.0
 $ bin/pulsar standalone
 ```
 
-## Pulsar使用
+### Pulsar集群
 
