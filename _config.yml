@@ -44,3 +44,4 @@ regenerate:       true
 
 plugins:
   - jemoji
+  - multipart
