@@ -1,35 +1,46 @@
-# Dependencies
-markdown:         kramdown
-highlighter:      rouge
+# Configurations
+title:            Ahern's Blog
+longtitle:        Jekyll Gitbook
+author:           ahern
+email:            sun.xiaojun1008@gmail.com
+description: >
+  日常笔记.
 
-# Setup
-title:            喝酸奶的小睿睿
-tagline:          'ahern'
-description:      ''
-url:              https://ahern2018.github.io
+version:          1.0
+gitbook_version:  3.2.3
+
+url:              'https://ahern2018.github.io'
 baseurl:          ''
-                  # the optional subpath of your site, e.g. "/blog"
-                  # NB: This applies to all pages in your Jekyll site.
-                  # If you want to move just the blog index pages but keep
-                  # other pages at root, see the paginate_path and
-                  # sidebar_blog_link below.
+rss:              RSS
 
-author:
-  name:           'ahern'
-  url:            https://twitter.com/fongandrewc
+toc:
+  enabled: true
+  h_min: 1
+  h_max: 3
 
-paginate:         5
-# paginate_path:    '/page:num'
-                    # Or '/blog/page:num' if you want to move your index pages
+# markdown render engine.
+markdown:         kramdown
+kramdown:
+  auto_ids:               true
+  input:                  GFM
+  math_engine:            mathjax
+  smart_quotes:           lsquo,rsquo,ldquo,rdquo
+  toc_levels:             1..6
+  syntax_highlighter:     rouge
+  syntax_highlighter_opts:
+    guess_lang:           true
+
+markdown_ext:     markdown,mkdown,mkdn,mkd,md
+
+# Permalinks
+permalink:        /:categories/:year-:month-:day-:title:output_ext
+
+exclude:
+  - _drafts
+
+destination:      ./_site
+incremental:      false
+regenerate:       true
 
 plugins:
-  - jekyll-feed
-  - jekyll-gist
-  - jekyll-paginate
-
-# Sidebar link settings
-sidebar_home_link:  true
-# sidebar_blog_link:  '/blog'   # By default, your home page is your blog
-                                # page. If you change your paginate_path,
-                                # set this to the root of the paginate_path
-                                # to enable a separate blog link.
+  - jemoji
