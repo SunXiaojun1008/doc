@@ -45,3 +45,6 @@ regenerate:       true
 plugins:
   - jemoji
   - multipart
+  - summary
+  - toggle-chapters
+  - theme-comscore
