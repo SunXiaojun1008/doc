@@ -1,18 +1,16 @@
 1. 防火墙
 
-   1. 查看防火墙状态
+   查看防火墙状态
 
-      ```shell
-      systemctl status firewalld
-      ```
+   ```shell
+   systemctl status firewalld
+   ```
 
-   2. 关闭防火墙
+   关闭防火墙
 
-      ```shell
-      service firewalld stop
-      ```
-
-      
+   ```shell
+   service firewalld stop
+   ```
 
 2. 修改yum源
 
@@ -23,15 +21,27 @@
     [k8s.repo](C:\Users\Lenovo\Desktop\yum\k8s.repo) 
 
     [Centos-7.repo](C:\Users\Lenovo\Desktop\yum\Centos-7.repo) 
-
-```
-yum clean all  
-yum makecache
-```
+    
+    ```shell
+    yum clean all  
+    yum makecache
+    ```
 
 3. vim 全局修改
 
    > :%s/from/to/g
+
+4. 进程查询
+
+   ```shell
+   netstat -nltp | grep clickhouse
+   ```
+
+5. 查看系统服务日志
+
+   ```shell
+   journalctl -u clickhouse-server
+   ```
 
    
 
