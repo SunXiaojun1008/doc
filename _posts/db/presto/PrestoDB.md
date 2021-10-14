@@ -155,6 +155,16 @@ Presto 通过*连接器*访问数据，*连接器*安装在目录中。连接器
 - `server.log`：这是 Presto 使用的主要日志文件。如果服务器在初始化期间出现故障，它通常会包含相关信息。它会自动旋转和压缩。
 - `http-request.log`：这是包含服务器收到的每个 HTTP 请求的 HTTP 请求日志。它会自动旋转和压缩。
 
+### Presto命令行
+
+1. 连接
+
+   ```shell
+   ./presto --server localhost:18090 --catalog postgresql
+   ```
+
+   
+
 ### 异常
 
 ### Presto：特性、原理、架构
