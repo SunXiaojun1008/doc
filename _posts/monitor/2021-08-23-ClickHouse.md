@@ -198,7 +198,7 @@ dpm02 :)
 
 ### 基础命令
 
-#### clickhouse-client --query 
+#### clickhouse-client --query
 
 > 执行SQL语句
 >
